@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <style>
+        body { margin: 0; padding: 0; }
+        input { outline: none; }
+        /*弹幕区*/
+        .barrage { margin: 40px; text-align: center; }
+        .b-show { position:relative; overflow: hidden; height: 400px; text-align: right; }
+        .b-screen { width: 100%; height: 400px; border: 1px solid #eee; border-radius: 6px; }
+        .b-send { margin-top: 40px; text-align: center; }
+        .message { position: absolute; overflow: hidden; height: 24px; font-size: 18px; }
+        /*发送区*/
+        .s-txt { width: 400px; height: 35px; padding: 0 15px; font-size: 15px; border-radius: 3px; border: 1px solid #b9b7b7; }
+        .s-del, .s-sub { width: 160px; height: 35px; font-size: 14px; line-height: 22px; background: #fff; border: 1px solid; border-radius: 3px; cursor: pointer; }
+        .s-sub { color: #ff6a00; }
+        .s-del { color: #808080; }
+
+    </style>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            var oSub = $('.s-sub');
+            var oTxt = $('.s-txt');
+            //发送按钮点击事件
+            oSub.click(function () {
+                var iMsg = null;
+                var iLeft = $('.b-show').width() + 20;
+                var iWidth = 0;
+                if (oTxt.val()) {
+                    iMsg = $('<div>' + oTxt.val() + '</div>');
+                    $('.b-show').append(iMsg);
+                    iMsg.addClass('message').css('top', Math.random()*360 + 'px').width(iMsg.width());
+                    iMsg.animate({
+                        'right': '+=' + iLeft
+                    }, 7000);
+                } else {
+                    oTxt.attr('placeholder', '不能发送空白字符');
+                }
+                oTxt.val('');
+            });
+            //发送键盘按下事件
+            oTxt.keypress(function (e) {
+                if (e.keyCode == '13') {
+                    oSub.trigger('click');
+                }
+            });
+            //输入框焦点事件
+            oTxt.focus(function () {
+                oTxt.attr('placeholder', '');
+            });
+            oTxt.blur(function () {
+                if(!oTxt.val())
+                    oTxt.attr('placeholder', '说点什么？');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="barrage">
+        <!--弹幕区-->
+        <div class="b-screen">
+            <div class="b-show">
+
+            </div>
+        </div>
+        <!--发送区-->
+        <div class="b-send">
+            <div class="s-box">
+                <p>
+                    <input class="s-txt" type="text" placeholder="说点什么？" >
+                </p>
+                <p>
+                    <input class="s-sub" type="button" value="发射" />
+                    <input class="s-del" type="button" value="清屏" />
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
