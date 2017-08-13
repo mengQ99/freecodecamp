@@ -12,7 +12,7 @@
       .b-screen { width: 100%; height: 400px; border: 1px solid #eee; border-radius: 6px; }
       .b-show { position:relative; overflow: hidden; height: 400px; text-align: right; }
       .b-send { margin-top: 40px; text-align: center; }
-      .message { position: absolute; top: 0; right: 0; overflow: hidden; height: 24px; font-size: 20px; font-weight: 700; color: #fff; text-align: center; white-space: nowrap; }
+      .message { position: absolute; top: 0; right: 0; overflow: hidden; height: 30px; font-size: 20px; font-weight: 700; color: #fff; text-align: center; white-space: nowrap; }
       /*** 发送区 ***/
       .s-txt { width: 400px; height: 35px; padding: 0 15px; font-size: 15px; border-radius: 3px; border: 1px solid #b9b7b7; }
       .s-txt:focus { box-shadow: 0 0 1px #333; }
@@ -21,7 +21,6 @@
       .s-del { color: #808080; }
       .s-sub:focus { box-shadow: 0 0 1px #ff6a00; }
       .s-del:focus { box-shadow: 0 0 1px #808080; }
-
     </style>
     <script src="../js/jquery-3.2.1.min.js"></script>
     <script>
@@ -30,7 +29,7 @@
             var oTxt = $('.s-txt');
             var oDel = $('.s-del');
             var oShow = $('.b-show');
-            var iLeft = $('.b-mask').width();
+            var iLeft = oShow.width();
             var getRandom =  function (obj){
                 obj.addClass('message')
                 .css({
@@ -44,7 +43,7 @@
             	//由于random()的范围是 [0,1) 因此这种方法取不到#fff 
             	//需要把 0xffffff + 1 也就是 0x1000000
             	return '#'+('00000'+(Math.random()*0xffffff<<0).toString(16)).slice(-6);
-            }
+            };
             var move = function (obj){
 	            var w = obj.width();
 	            var l = obj.offset().left;
@@ -55,7 +54,7 @@
 		        }, 10000, 'linear', function(){
 		        		obj.remove();
 		        });   
-            }
+            };
             //发送按钮点击事件
             oSub.click(function () {
                 //检测发送内容是否为空
@@ -94,7 +93,6 @@
     <div class="barrage">
         <!-- 弹幕区 -->
         <div class="b-screen">
-
           	<div class="b-show">
 				<!-- <div> messages </div> -->
           	</div>
