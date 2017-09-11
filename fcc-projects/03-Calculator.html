@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>calc</title>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+      body {
+        background-color: white;
+        font-family: "Open Sans", sans-serif;
+        padding: 5px 25px;
+        font-size: 18px;
+        margin: 0;
+        color: #444;
+      }
+      ul, li { margin: 0; padding: 0; }
+      li { list-style: none; }
+      textarea { overflow: hidden; resize: none; }
+
+      .wrap ul {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        width: 208px;
+        border: 1px solid #ccc;
+        overflow: hidden;
+      }
+      .wrap li { 
+        float: left;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+      .wrap li:active {
+        background-color: #eee;
+      }
+      .result {
+        display: block;
+        box-sizing: border-box;
+        width: 210px;
+        height: 100px;
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid orange;
+        border-bottom: none;
+        outline: none;
+        font-family: "Open Sans", sans-serif;
+      }
+      .info {
+        padding-top: 20px;
+        font-family: 'microsoft yahei';
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function(){
+        var oDivi = document.getElementsByClassName('divi')[0]; //除
+        var oMult = document.getElementsByClassName('mult')[0]; //乘
+        var oAdd = document.getElementsByClassName('add')[0]; //加
+        var oRdu = document.getElementsByClassName('reduce')[0]; //减
+        var oEq = document.getElementsByClassName('equal')[0]; //=
+        var oDel = document.getElementsByClassName('del')[0]; //delete
+        var oClr = document.getElementsByClassName('clr')[0]; //clear
+        var aNum = document.getElementsByClassName('num'); //number List
+        var aSymbol = document.getElementsByClassName('s'); //symbol List
+        var oRes = document.getElementsByClassName('result')[0]; //结果显示
+        var oPon = document.getElementsByClassName('point')[0]; //小数点
+        var oMinus = document.getElementsByClassName('minus')[0]; //负号 ±
+        var op1, op2, symb, flag, flag1;
+
+        op1 = op2 = symb ='';
+        flag = true; //flag用于判断当前是否清除文本框以显示接下来的操作数
+
+        //数字键按下
+        for(var i = 0; i < aNum.length; i++){
+          
+          aNum[i].onclick = function(){ 
+
+            
+            if(flag){
+              oRes.value = '';
+              flag = false;
+            }
+
+            oRes.value += this.innerText;
+
+            isEmpty(symb) ? op1 = parseFloat(oRes.value) : op2 = parseFloat(oRes.value);
+
+          }
+        }
+
+        //运算符按下
+        for(i = 0; i < aSymbol.length; i++){
+          aSymbol[i].onclick = function(){
+            
+            if(!check(oRes.value)) {
+              alert('无效输入');
+              oRes.value = op1 = op2 = symb = '';
+              flag = true;
+            }
+            
+            if(!isEmpty(op1) && !isEmpty(op2) && !isEmpty(symb)){
+              op1 = oRes.value = calc(symb);
+            }
+            
+            symb = this.className;
+            op2 = '';
+            flag = true;
+          };
+        }
+
+        //点击等号计算结果 
+        oEq.onclick = function(){
+          if(!check(oRes.value)) {
+            alert('无效输入');
+            oRes.value = op1 = op2 = symb = '';
+            flag = true;
+          }
+          if(!isEmpty(op1) && !isEmpty(op2) && !isEmpty(symb)){
+            op1 = oRes.value = calc(symb);
+            op2 = symb = '';
+            flag = true;
+          }
+        }
+
+        //合法数字检验
+        function check(str){
+          var re;
+
+          if(str.indexOf('.') == -1){
+            re = /^(0|[1-9][0-9]*)$/;
+            (str[0] == '-') && (str = str.slice(1));
+            return re.test(str);            
+          }
+          return true;
+        }
+
+        function isEmpty(obj){
+          return obj === '';
+        }
+
+        function calc(type){
+          var res;
+          type = type.slice(0, type.length-2);
+          switch(type){
+            case 'divi': res = op1 / op2; break;
+            case 'mult': res = op1 * op2; break;
+            case 'add': res = op1 + op2; break;
+            case 'rduc': res = op1 - op2; break;
+          }
+
+          return Number.isInteger(res) ? res : res.toFixed(2);
+        }
+
+        // 点击小数点 仅可包含一个小数点
+        oPon.onclick = function(){
+          (!oRes.value) && (oRes.value = '0.');
+          (oRes.value.indexOf('.') == -1) && (oRes.value += '.');
+        }
+
+        // 点击正负号 
+        oMinus.onclick = function(){
+          if(oRes.value){
+            
+            (oRes.value[0] !== '-') && (oRes.value = '-' + oRes.value);
+
+          }else{
+            oRes.value = '-';
+          }
+        }
+
+        //clear清除结果
+        oClr.onclick = function(){
+          oRes.value = '';
+          op1 = op2 = symb = '';
+          flag = true;
+        }
+
+        //del退格
+        oDel.onclick = function(){
+          var val = oRes.value;
+          if(val) oRes.value = val.slice(0, val.length - 1);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrap">
+      <textarea class="result"></textarea>
+      <ul>
+        <li class="clr">AC</li>
+        <li class="del">←</li>
+        <li class="minus">±</li>
+        <li class="divi s">÷</li>
+        <li class="num">7</li>
+        <li class="num">8</li>
+        <li class="num">9</li>
+        <li class="mult s">×</li>
+        <li class="num">4</li>
+        <li class="num">5</li>
+        <li class="num">6</li>
+        <li class="rduc s">-</li>
+        <li class="num">1</li>
+        <li class="num">2</li>
+        <li class="num">3</li>
+        <li class="add s">+</li>
+        <li class="num">0</li>
+        <li class="num">00</li>
+        <li class="point">.</li>
+        <li class="equal">=</li>
+      </ul>
+    </div>
+    <ul class="info">
+      <li>1. 连续运算</li>
+      <li>2. 保留两位小数</li>
+      <li>3. 输入合法性</li>
+    </ul>
+  </body>
+</html>
