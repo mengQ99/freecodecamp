@@ -2,11 +2,11 @@
 
 fcc的部分算法题目以及项目
 
-官方网站：[www.freecodecamp.org][1]
+> 官方网站：[www.freecodecamp.org][1]
 
-中文网站：[www.freecodecamp.cn][2]
+> 中文网站：[www.freecodecamp.cn][2]
 
-我的编码作品集：[freecodecamp.cn/mengq99][3]
+> 我的编码作品集：[freecodecamp.cn/mengq99][3]
 
 ### [算法题目个人思路解析][4]
 
@@ -14,7 +14,7 @@ fcc的部分算法题目以及项目
 - 中级算法
 - 高级算法
 
-### 部分项目
+### [部分项目][5]
 
 - 弹幕app/jq
 - 获取当地天气/JSONP
@@ -27,3 +27,4 @@ fcc的部分算法题目以及项目
   [2]: http://www.freecodecamp.cn
   [3]: https://freecodecamp.cn/mengq99
   [4]: fcc-algorithm-scripting
+  [5]: fcc-projects
