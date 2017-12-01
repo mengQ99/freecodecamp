@@ -1,5 +1,5 @@
-﻿# 高级算法
-标签： fcc
+# 高级算法
+
 ## 1. Validate US Telephone Numbers
 如果传入字符串是一个有效的美国电话号码，则返回 `true`。下面是一些有效号码的例子:
 
