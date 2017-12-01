@@ -4,9 +4,9 @@
 
 ### 算法题目个人思路解析
 
-- Basic
-- Intermediate 
-- Advanced
+- [Basic](Basic.md)
+- [Intermediate](Intermediate.md) 
+- [Advanced](Advanced.md)
 
 
 
