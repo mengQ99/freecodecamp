@@ -2,7 +2,7 @@
 
 > 我的编码作品集：[freecodecamp.cn/mengq99][3]
 
-### [算法题目个人思路解析][4]
+### 算法题目个人思路解析
 
 - Basic
 - Intermediate 
@@ -13,4 +13,3 @@
 
 
   [3]: https://freecodecamp.cn/mengq99
-  [4]: fcc-algorithm-scripting
